@@ -1,3 +1,4 @@
+-- Active: 1736978323269@@127.0.0.1@3306
 CREATE TABLE IF NOT EXISTS accounts(
   id VARCHAR(255) NOT NULL PRIMARY KEY COMMENT 'primary key',
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
@@ -9,13 +10,13 @@ CREATE TABLE IF NOT EXISTS accounts(
 
 CREATE TABLE recipes(
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT,
-  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   recipe_name VARCHAR(255) NOT NULL,
   title VARCHAR(255) NOT NULL,
   instructions VARCHAR(5000),
-  img VARCHAR(1000)
-  category ENUM('breakfast', 'lunch', 'dinner', 'snack', 'dessert')
-  creator_id VARCHAR(255)
+  img VARCHAR(1000) NOT NULL,
+  category ENUM('breakfast', 'lunch', 'dinner', 'snack', 'dessert') NOT NULL,
+  creator_id VARCHAR(255) NOT NULL,
   Foreign Key (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
 )
