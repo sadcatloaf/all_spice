@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS accounts(
 ) default charset utf8mb4 COMMENT '';
 
 
-CREATE TABLE recipe(
+CREATE TABLE recipes(
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -19,4 +19,13 @@ CREATE TABLE recipe(
   category ENUM('breakfast', 'lunch', 'dinner', 'snack', 'dessert'),
   creator_id VARCHAR(255) NOT NULL,
   Foreign Key (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
-)
+);
+
+DROP TABLE recipes;
+
+SELECT 
+        recipes.*,
+        accounts.*
+        FROM recipes 
+        JOIN accounts ON recipes.creator_id = accounts.id
+        WHERE recipes.id = 2;
