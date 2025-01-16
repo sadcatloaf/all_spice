@@ -1,3 +1,4 @@
+-- Active: 1736978323269@@127.0.0.1@3306@rational_mermaid_e918_db
 CREATE TABLE IF NOT EXISTS accounts(
   id VARCHAR(255) NOT NULL PRIMARY KEY COMMENT 'primary key',
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
