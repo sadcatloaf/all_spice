@@ -12,7 +12,7 @@ public class Recipe
     [MinLength(15), MaxLength(1000)] public string Instructions { get; set; }
     [Url, MaxLength(3000)] public string Img { get; set; }
     public string Category { get; set; }
-    public Account Creator { get; set; }
+    public Profile Creator { get; set; }
 }
 
 
