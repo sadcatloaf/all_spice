@@ -6,3 +6,16 @@ CREATE TABLE IF NOT EXISTS accounts(
   email VARCHAR(255) UNIQUE COMMENT 'User Email',
   picture VARCHAR(255) COMMENT 'User Picture'
 ) default charset utf8mb4 COMMENT '';
+
+
+CREATE TABLE recipe(
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  title VARCHAR(255) NOT NULL,
+  instructions VARCHAR(5000),
+  img VARCHAR(1000) NOT NULL,
+  category ENUM('breakfast', 'lunch', 'dinner', 'snack', 'dessert'),
+  creator_id VARCHAR(255) NOT NULL,
+  Foreign Key (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
+)

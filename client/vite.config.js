@@ -27,6 +27,6 @@ export default defineConfig({
   },
 
   // NOTE If deploying to gh-pages uncomment the line below (https://vitejs.dev/config/shared-options.html#base)
-  // base: '/all_spice/'
+  // base: '/client/'
 })
 

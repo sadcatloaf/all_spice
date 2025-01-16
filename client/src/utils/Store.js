@@ -1,7 +1,7 @@
 import { logger } from "./Logger.js"
 import Pop from "./Pop.js"
 
-const APP_NAME = "all_spice"
+const APP_NAME = "client"
 
 export function saveState(key, value) {
   try {
