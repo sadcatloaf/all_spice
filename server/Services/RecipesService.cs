@@ -27,6 +27,9 @@ public class RecipesService
     internal Recipe GetRecipeById(int recipeId)
     {
         Recipe recipe = _repository.GetRecipeById(recipeId);
+
+        if (recipe == null) throw new Exception($"Invalid recipe id: {recipeId}");
+
         return recipe;
     }
 
@@ -40,6 +43,15 @@ public class RecipesService
         recipe.Category = recipeUpdateData.Category ?? recipe.Category;
         _repository.UpdateRecipe(recipe);
         return recipe;
+    }
+
+
+    internal string DeleteRecipe(int recipeId, string userId)
+    {
+        Recipe recipe = GetRecipeById(recipeId);
+        if (recipe.CreatorId != userId) throw new Exception("This is not your recipe");
+        _repository.DeleteRecipe(recipeId);
+        return $"Deleted the {recipe.Title}!";
     }
 }
 

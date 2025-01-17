@@ -85,6 +85,15 @@ public class RecipesRepository
         if (rowsAffected > 1) throw new Exception("Calm down it's too successful");
 
     }
+
+    internal void DeleteRecipe(int recipeId)
+    {
+        string sql = "DELETE FROM recipes WHERE id = @id LIMIT 1;";
+        int rowsAffected = _db.Execute(sql, new { id = recipeId });
+
+        if (rowsAffected == 0) throw new Exception("Delete successful");
+        if (rowsAffected > 1) throw new Exception("Calm down your delete powers to powerful");
+    }
 }
 
 // CREATE TABLE recipe(

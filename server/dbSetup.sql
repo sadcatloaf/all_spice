@@ -30,3 +30,12 @@ SELECT
         JOIN accounts ON recipes.creator_id = accounts.id
         WHERE recipes.id = 2;
 
+
+CREATE TABLE ingredients(
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  name VARCHAR(255) NOT NULL,
+  quantity VARCHAR(255) NOT NULL,
+  recipe_id INT NOT NULL
+)

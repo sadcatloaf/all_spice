@@ -1,5 +1,7 @@
+using System.Formats.Asn1;
 using all_spice_dotnet.Models;
 using all_spice_dotnet.Services;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace all_spice_dotnet.Controllers;
 
@@ -68,13 +70,29 @@ public class RecipesController : ControllerBase
     {
         try
         {
-            Account userinfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-            Recipe updatedRecipe = _recipesService.UpdateRecipe(recipeId, userinfo.Id, recipeUpdateData);
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            Recipe updatedRecipe = _recipesService.UpdateRecipe(recipeId, userInfo.Id, recipeUpdateData);
             return Ok(updatedRecipe);
         }
         catch (Exception exception)
         {
             return BadRequest(exception.Message);
+        }
+    }
+
+    [Authorize]
+    [HttpDelete("{recipeId}")]
+    public async Task<ActionResult<string>> DeleteRecipe(int recipeId)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            string message = _recipesService.DeleteRecipe(recipeId, userInfo.Id);
+            return Ok(message);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
         }
     }
 }
