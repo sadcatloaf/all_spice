@@ -67,6 +67,24 @@ public class RecipesRepository
         }, new { recipeId }).SingleOrDefault();
         return recipe;
     }
+
+    internal void UpdateRecipe(Recipe recipeData)
+    {
+        string sql = @"
+    UPDATE recipes
+    SET
+    title = @Title,
+    img = @Img,
+    instructions = @Instructions,
+    category = @Category
+    WHERE id = @Id LIMIT 1;";
+
+        int rowsAffected = _db.Execute(sql, recipeData);
+
+        if (rowsAffected == 0) throw new Exception("Update successful");
+        if (rowsAffected > 1) throw new Exception("Calm down it's too successful");
+
+    }
 }
 
 // CREATE TABLE recipe(

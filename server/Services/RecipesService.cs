@@ -29,4 +29,30 @@ public class RecipesService
         Recipe recipe = _repository.GetRecipeById(recipeId);
         return recipe;
     }
+
+    internal Recipe UpdateRecipe(int recipeId, string userId, Recipe recipeUpdateData)
+    {
+        Recipe recipe = GetRecipeById(recipeId);
+        if (recipe.CreatorId != userId) throw new Exception("This is not your recipe, hands off!");
+        recipe.Title = recipeUpdateData.Title ?? recipe.Title;
+        recipe.Instructions = recipeUpdateData.Instructions ?? recipe.Instructions;
+        recipe.Img = recipeUpdateData.Img ?? recipe.Img;
+        recipe.Category = recipeUpdateData.Category ?? recipe.Category;
+        _repository.UpdateRecipe(recipe);
+        return recipe;
+    }
 }
+
+
+
+// CREATE TABLE recipe(
+//   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+//   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+//   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+//   title VARCHAR(255) NOT NULL,
+//   instructions VARCHAR(5000),
+//   img VARCHAR(1000) NOT NULL,
+//   category ENUM('breakfast', 'lunch', 'dinner', 'snack', 'dessert'),
+//   creator_id VARCHAR(255) NOT NULL,
+//   Foreign Key (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
+// )

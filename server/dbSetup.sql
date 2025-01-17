@@ -29,3 +29,4 @@ SELECT
         FROM recipes 
         JOIN accounts ON recipes.creator_id = accounts.id
         WHERE recipes.id = 2;
+

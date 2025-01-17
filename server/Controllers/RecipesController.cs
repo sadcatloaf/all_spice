@@ -61,4 +61,20 @@ public class RecipesController : ControllerBase
             return BadRequest(exception.Message);
         }
     }
+
+    [Authorize]
+    [HttpPut("{recipeId}")]
+    public async Task<ActionResult<Recipe>> UpdateRecipe(int recipeId, [FromBody] Recipe recipeUpdateData)
+    {
+        try
+        {
+            Account userinfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            Recipe updatedRecipe = _recipesService.UpdateRecipe(recipeId, userinfo.Id, recipeUpdateData);
+            return Ok(updatedRecipe);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
 }
