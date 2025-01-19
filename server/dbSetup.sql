@@ -38,4 +38,10 @@ CREATE TABLE ingredients(
   name VARCHAR(255) NOT NULL,
   quantity VARCHAR(255) NOT NULL,
   recipe_id INT NOT NULL
-)
+);
+
+
+SELECT * FROM ingredients WHERE id = 4;
+
+
+INSERT INTO ingredients (quantity, recipe_id, name) VALUES ('2 pounds', 3, 'cheese');
