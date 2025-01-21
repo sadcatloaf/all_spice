@@ -60,9 +60,9 @@ public class RecipesRepository
     FROM recipes
     JOIN accounts ON recipes.creator_id = accounts.id
     WHERE recipes.id = @recipeId;";
-        Recipe recipe = _db.Query(sql, (Recipe recipe, Profile account) =>
+        Recipe recipe = _db.Query(sql, (Recipe recipe, Profile creator) =>
         {
-            recipe.Creator = account;
+            recipe.Creator = creator;
             return recipe;
         }, new { recipeId }).SingleOrDefault();
         return recipe;
@@ -94,7 +94,29 @@ public class RecipesRepository
         if (rowsAffected == 0) throw new Exception("Delete successful");
         if (rowsAffected > 1) throw new Exception("Calm down your delete powers to powerful");
     }
+
+    // NOTE unused
+    internal List<Ingredient> GetIngredientsByRecipeId(int recipeId)
+    {
+        string sql = @"
+    SELECT
+    ingredients.*,
+    recipes.*
+    FROM ingredients
+    JOIN recipes ON ingredients.recipe_id = recipes.id
+    WHERE recipes.id = @recipeId;";
+
+        var ingredients = _db.Query(sql, (Ingredient ingredient, Recipe recipe) =>
+        {
+            // Assign any properties from the Recipe object to the Ingredient object, if needed.
+            ingredient.recipeId = recipeId; // If your Ingredient class has a Recipe property.
+            return ingredient;
+        }, new { recipeId }).ToList(); // Ensure it's a list
+
+        return ingredients;
+    }
 }
+
 
 // CREATE TABLE recipe(
 //   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,

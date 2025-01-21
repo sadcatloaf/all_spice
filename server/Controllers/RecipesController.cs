@@ -10,15 +10,15 @@ namespace all_spice_dotnet.Controllers;
 
 public class RecipesController : ControllerBase
 {
-    public RecipesController(RecipesService recipesService, Auth0Provider auth0Provider)
+    public RecipesController(RecipesService recipesService, Auth0Provider auth0Provider, IngredientsService bananaSandwhich)
     {
         _recipesService = recipesService;
         _auth0Provider = auth0Provider;
-        // _ingredientsService = ingredientsService;
+        _ingredientsService = bananaSandwhich;
     }
     private readonly RecipesService _recipesService;
     private readonly Auth0Provider _auth0Provider;
-    // private readonly IngredientsService _ingredientsService;
+    private readonly IngredientsService _ingredientsService;
 
     [Authorize]
     [HttpPost]
@@ -98,17 +98,17 @@ public class RecipesController : ControllerBase
         }
     }
 
-    // [HttpGet("{recipeId}/ingredients")]
-    // public ActionResult<List<Ingredient>> GetIngredientsByRecipeId(int recipeId)
-    // {
-    //     try
-    //     {
-    //         List<Ingredient> ingredients = _ingredientsService.GetIngredientsByRecipeId(recipeId);
-    //         return Ok(ingredients);
-    //     }
-    //     catch (Exception exception)
-    //     {
-    //         return BadRequest(exception.Message);
-    //     }
-    // }
+    [HttpGet("{recipeId}/ingredients")]
+    public ActionResult<List<Ingredient>> GetIngredientsByRecipeId(int recipeId)
+    {
+        try
+        {
+            List<Ingredient> ingredients = _ingredientsService.GetIngredientsByRecipeId(recipeId); // returns a List<Ingredient>
+            return Ok(ingredients);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
 }

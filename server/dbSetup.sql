@@ -41,7 +41,17 @@ CREATE TABLE ingredients(
 );
 
 
-SELECT * FROM ingredients WHERE id = 4;
+
 
 
 INSERT INTO ingredients (quantity, recipe_id, name) VALUES ('2 pounds', 3, 'cheese');
+
+
+
+SELECT * FROM ingredients WHERE recipe_id = 3;
+
+
+SELECT accounts.id, accounts.name, recipes.id, recipes.title FROM recipes JOIN accounts ON recipes.creator_id = accounts.id;
+
+
+DELETE FROM ingredients WHERE name = 'cheese';
