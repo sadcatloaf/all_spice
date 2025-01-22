@@ -43,18 +43,22 @@ CREATE TABLE ingredients(
 
 DROP TABLE ingredients;
 
-
-
-
-
 INSERT INTO ingredients (quantity, recipe_id, name) VALUES ('2 pounds', 3, 'cheese');
-
-
 
 SELECT * FROM ingredients WHERE recipe_id = 3;
 
-
 SELECT accounts.id, accounts.name, recipes.id, recipes.title FROM recipes JOIN accounts ON recipes.creator_id = accounts.id;
 
-
 DELETE FROM ingredients WHERE name = 'cheese';
+
+CREATE TABLE favorites(
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  recipe_id INT NOT NULL,
+  account_id VARCHAR(255) NOT NULL,
+  Foreign Key (recipe_id) REFERENCES recipes(id),
+  Foreign Key (account_id) REFERENCES accounts(id) ON DELETE CASCADE
+);
+
+DROP TABLE favorites;
