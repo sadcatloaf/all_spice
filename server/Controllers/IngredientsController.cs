@@ -23,7 +23,7 @@ public class IngredientsController : ControllerBase
         try
         {
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-            Ingredient ingredient = _ingredientsService.CreateIngredient(ingredientData);
+            Ingredient ingredient = _ingredientsService.CreateIngredient(ingredientData, userInfo.Id);
             return Ok(ingredient);
         }
         catch (Exception exception)

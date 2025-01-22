@@ -37,8 +37,11 @@ CREATE TABLE ingredients(
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   name VARCHAR(255) NOT NULL,
   quantity VARCHAR(255) NOT NULL,
-  recipe_id INT NOT NULL
+  recipe_id INT NOT NULL,
+  Foreign Key (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
 );
+
+DROP TABLE ingredients;
 
 
 
